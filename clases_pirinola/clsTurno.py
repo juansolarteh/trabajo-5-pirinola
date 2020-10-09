@@ -5,7 +5,7 @@ from clases_pirinola.clsJugador import Jugador
 class Turno:
 
     def __init__(self,jugador,id_turno):
-        self.jugador=Jugador(jugador)
+        self.jugador=jugador
         self.id_turno=id_turno
         self.valor_sacado = self.retornar_valor_sacado()
 
