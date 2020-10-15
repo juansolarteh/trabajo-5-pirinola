@@ -1,3 +1,6 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
+
 from random import randint
 from clases_pirinola.clsJugador import Jugador
 

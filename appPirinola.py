@@ -1,3 +1,6 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
+
 from clases_pirinola import Pirinola
 from capaExterna import Menu
 

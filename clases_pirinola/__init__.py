@@ -1,3 +1,5 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
 from clases_pirinola.clsPartida import Partida
 from clases_pirinola.clsHistorialPartida import HistorialPartida
 

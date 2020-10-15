@@ -1,3 +1,6 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
+
 #Clase que itera un menu de opciones que son otorgadas
 #en el constructor del objeto menu. Tambien procesa la eleccion
 #de la opcion del menu valida la eleccion y tiene un metodo publico

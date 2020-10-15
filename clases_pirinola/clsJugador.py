@@ -1,3 +1,6 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
+
 class Jugador:
     def __init__(self,nombre, planteInicial):
         self.nombre_jugador = nombre

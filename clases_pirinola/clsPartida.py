@@ -1,3 +1,6 @@
+#Juan Pablo Solarte
+#Jorge Ivan Solano
+
 from clases_pirinola.clsJugador import Jugador
 from clases_pirinola.clsTurno import Turno
 
@@ -13,6 +16,7 @@ class Partida:
         self.valor_ganado=0
         self.n_jugador=0
         self.acumulado = 0
+        self.todosEmpate = False
 
     def add_jugador(self, nombre,monto):
         self.lista_jugadores.append(Jugador(nombre,monto))
@@ -41,7 +45,8 @@ class Partida:
         if self.empate == True:
             return
         for jugador in self.lista_jugadores:
-            if jugador.monto == 0:
+            if jugador.monto <= 0:
+
                 print("Jugador " + jugador.nombre_jugador + " salió del juego")
                 self.lista_jugadores.remove(jugador)
                 listaAux.pop(posicion)
@@ -83,10 +88,11 @@ class Partida:
             self.lista_jugadores[0].sumarPlante(self.acumulado)
             self.acumulado = 0
         print("Ronda terminada")
+        self.definirTodosEmpate(listaAux)
         if self.empate==False:
             self.ganador,self.valor_ganado=self.definirGanador(listaAux)
         else:
-            self.ganador=False
+            self.ganador=None
 #De acuerdo al re4sultado de la pirinola
     def __ajustarAcumulado(self,resultado_turno,jugador:Jugador):
         if resultado_turno == 'Toma1':
@@ -109,9 +115,10 @@ class Partida:
         elif resultado_turno == 'Pon2':
             if jugador.monto == self.valor_partida:
                 self.acumulado += (self.valor_partida)
+                jugador.restarPlante(self.valor_partida)
             else:
                 self.acumulado += (self.valor_partida*2)
-            jugador.restarPlante(self.valor_partida * 2)
+                jugador.restarPlante(self.valor_partida * 2)
         elif resultado_turno == 'TodosPonen':
             for jugador in self.lista_jugadores:
                 jugador.restarPlante(self.valor_partida)
@@ -132,6 +139,23 @@ class Partida:
                 ganador=self.lista_jugadores[posJug]
         return ganador,valor
 
+    def definirTodosEmpate(self,listaMontoInicial):
+        restas = list()
+        if len(listaMontoInicial) == 1:
+            self.empate = False
+            return
+        for posJug in range (len(self.lista_jugadores)):
+            montActualJugador=self.lista_jugadores[posJug].get_monto()
+            montInicialJugador=listaMontoInicial[posJug]
+            resta = montActualJugador-montInicialJugador
+            restas.append(resta)
+        valor = restas[0]
+        for i in restas:
+            if i != valor:
+                self.empate = False
+                return
+        self.empate = True
+
     def dividirAcumulado(self):
         div=self.acumulado/len(self.lista_jugadores)
         for jug in self.lista_jugadores:
@@ -140,8 +164,9 @@ class Partida:
     def darPrimeraApuesta(self):
         for jug in self.lista_jugadores:
             if(jug.monto < self.valor_partida*2):
-                print("El jugador ",jug.nombre," no tiene suficiente dinero para jugar al menos una ronda")
+                print("El jugador ",jug.nombre_jugador," no tiene suficiente dinero para jugar al menos una ronda")
                 self.lista_jugadores.remove(jug)
             else:
                 jug.restarPlante(self.valor_partida)
+                print("jugador ",jug.nombre_jugador," monto actual descontando primera apuesta: ",jug.monto)
 
