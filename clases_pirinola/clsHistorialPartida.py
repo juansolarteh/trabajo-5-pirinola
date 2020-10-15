@@ -5,3 +5,5 @@ class HistorialPartida:
         self.nombreGanador = nombreGanador
         self.montoGanado = montoGanado
         self.montoActualGanador = montoActualGanador
+
+
