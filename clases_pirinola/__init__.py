@@ -28,7 +28,8 @@ class Pirinola:
         self.partidaActual.id_partida = self.numeroPartida
         self.partidaActual.inicia_turnos()
         if self.partidaActual.ganador is not None:
-            his = HistorialPartida(self.numeroPartida,self.partidaActual.ganador.get_nombre(),self.partidaActual.valor_ganado,
+            his = HistorialPartida(self.numeroPartida,self.partidaActual.ganador.get_nombre(),
+                                   self.partidaActual.valor_ganado-self.partidaActual.get_valor_partida(),
                                    self.partidaActual.ganador.get_monto())
         else:
             his = HistorialPartida(self.numeroPartida, "EMPATE",0,0)

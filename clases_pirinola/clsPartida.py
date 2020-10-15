@@ -51,9 +51,10 @@ class Partida:
     def inicia_turnos(self):
         self.empate=True
         listaAux = list()
+        self.darPrimeraApuesta()
         for i in self.lista_jugadores:
             listaAux.append(i.get_monto())
-        self.verificarJugadores(listaAux)
+        #self.verificarJugadores(listaAux)
         self.acumulado = self.calcular_acumulado_inicial()
         self.n_jugador = 0
         n_turno = 0
@@ -78,6 +79,9 @@ class Partida:
             self.n_jugador = self.n_jugador + 1
             if (self.n_jugador == len(self.lista_jugadores)):
                 self.n_jugador = 0
+        if len(self.lista_jugadores)==1:
+            self.lista_jugadores[0].sumarPlante(self.acumulado)
+            self.acumulado = 0
         print("Ronda terminada")
         if self.empate==False:
             self.ganador,self.valor_ganado=self.definirGanador(listaAux)
@@ -132,3 +136,12 @@ class Partida:
         div=self.acumulado/len(self.lista_jugadores)
         for jug in self.lista_jugadores:
             jug.monto=div
+
+    def darPrimeraApuesta(self):
+        for jug in self.lista_jugadores:
+            if(jug.monto < self.valor_partida*2):
+                print("El jugador ",jug.nombre," no tiene suficiente dinero para jugar al menos una ronda")
+                self.lista_jugadores.remove(jug)
+            else:
+                jug.restarPlante(self.valor_partida)
+
